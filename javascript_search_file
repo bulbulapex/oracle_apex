@@ -1,0 +1,33 @@
+text field item: P469_SEARCH
+label: Search Any Word :
+
+appearance
+icon: fa-search
+value placeholder: Search
+
+then create dynamic action on this item
+event: key release
+true action: execute javascript code
+var t = $v('P469_SEARCH'); 
+    t = t.toLowerCase();
+var e = $("td").filter(function() {
+            return $(this).text().toLowerCase().indexOf(t) > -1;
+         });
+if(t==''){
+    $('td').removeClass('hasSearchText');
+}else{
+    $('td').removeClass('hasSearchText');
+    $(e).addClass('hasSearchText');
+    // alert('dd');
+}
+
+which region table value you want search there place a static id: menu_list
+then place the below code in function and global variable declaretion 
+$(document).ready(function(){
+     $("#P469_SEARCH").on("keyup", function() {
+     var value = $(this).val().toLowerCase();
+     $("#menu_list tbody tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+     });
+    });
+    });
